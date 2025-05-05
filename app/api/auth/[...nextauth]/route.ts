@@ -10,9 +10,9 @@ export const authOptions: AuthOptions = {
     }),
   ],
   secret: process.env.NEXTAUTH_SECRET,
-  pages: {
-    signIn: '/auth/signin', // Optional: custom sign-in page
-  },
+  // pages: {
+  //   signIn: '/auth/signin', // Optional: custom sign-in page
+  // },
   callbacks: {
     // async session({ session, token, user }) {
       async session({ session }) {

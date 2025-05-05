@@ -120,3 +120,22 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer utilities {
+  .heading{
+    @apply bg-black text-white text-[54px]! font-extrabold px-5 py-2 leading-[64px] uppercase text-center w-[970px]
+  }
+
+  .pink_container {
+    @apply w-full min-h-[530px] flex justify-center items-center flex-col py-10 px-6 bg-[#EE2B69] gap-[24px];
+  }
+
+  .sub-heading{
+    /* @apply bg-[#FBE843] text-black py-3 px-5 uppercase font-semibold text-[17px] leading-4 */
+    @apply text-white font-normal leading-[30px] text-[16px]
+  }
+
+  .quote{
+    @apply text-black bg-[#FBE843] uppercase py-2 px-4 font-bold text-[16px] leading-[24px]
+  }
+}
