@@ -1,0 +1,65 @@
+import { Avatar, AvatarImage } from '@/components/ui/avatar'
+import { Button } from '@/components/ui/button'
+import { Eye } from 'lucide-react'
+import Image from 'next/image'
+import React from 'react'
+
+interface StartupCardProps {
+    data: {
+        id: string
+        createdAt: string
+        viewed: string
+        author: string
+        title: string
+        avatar: string
+        description: string
+        thumbnail: string
+        level: string
+    }
+}
+
+const StartupCard: React.FC<StartupCardProps> = ({ data }) => {
+    return (
+        <div className='flex flex-col gap-4 p-4 bg-white border-t-[5px] border-l-[5px] border-r-[10px] border-b-[10px] border-black rounded-4xl w-[320px]'>
+            {/* Created at and viewed section */}
+            <div className='flex flex-row justify-between items-center'>
+                <div className='bg-[#FFE8F0] rounded-[50px] px-4 py-2 text-sm'>{data.createdAt}</div>
+                <div className='flex flex-row gap-2 items-center'>
+                    <Eye />
+                    <p className='text-sm font-normal'>{data.viewed}</p>
+                </div>
+            </div>
+            {/* Author,Title and Avatar section */}
+            <div className='flex flex-row justify-between'>
+                {/* Author,Title section */}
+                <div className='flex flex-col'>
+                    <div className='text-sm'>{data.author}</div>
+                    <div className='text-2xl font-semibold'>{data.title}</div>
+                </div>
+                {/* Author,Title section */}
+                <Avatar className='w-9 h-9'>
+                    <AvatarImage src={data.avatar} alt={data.author} sizes='30' />
+                </Avatar>
+            </div>
+            {/* Description section */}
+            <div className='text-sm leading-6 line-clamp-2 font-normal text-[#333333]'>{data.description}</div>
+            {/* Thumbnail section */}
+            <div className='relative w-full h-40'>
+                <Image
+                    src={data.thumbnail}
+                    fill
+                    alt="Picture of the author"
+                    className="object-cover rounded-md"
+                />
+            </div>
+            {/* Level and see details section */}
+            <div className='flex flex-row justify-between items-center'>
+                <div className='text-sm'>{data.level}</div>
+                <Button className='bg-black px-4 rounded-full'>Details</Button>
+            </div>
+
+        </div>
+    )
+}
+
+export default StartupCard
