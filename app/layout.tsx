@@ -3,6 +3,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 import AuthProvider from "@/components/AuthProvider";
 import localFont from 'next/font/local';
+import 'easymde/dist/easymde.min.css'
+
 
 export const metadata: Metadata = {
   title: "Create Next App",

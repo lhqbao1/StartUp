@@ -1,32 +1,16 @@
 import React from 'react'
 import SearchForm from '../components/SearchForm'
 import StartupCard from '../components/StartupCard'
+// import { client } from '@/sanity/lib/client'
+import { STARTUP_QUERY } from '@/sanity/lib/queries'
+import { Startup } from '@/types/startup'
+import { sanityFetch, SanityLive } from '@/sanity/lib/live'
 
-const Home = () => {
-  const StartupList = [
-    {
-      id: '1',
-      createdAt: '20 May, 2023',
-      viewed: '232',
-      author: 'Steven Smith',
-      title: 'EcoTrack',
-      avatar: 'https://github.com/shadcn.png',
-      description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.',
-      thumbnail: 'https://www.wpbeginner.com/wp-content/uploads/2020/04/featuredimageswp-og.png',
-      level: 'Senior level',
-    },
-    {
-      id: '2',
-      createdAt: '20 May, 2024',
-      viewed: '233',
-      author: 'Steven Smith',
-      title: 'EcoTrack',
-      avatar: 'https://github.com/shadcn.png',
-      description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.',
-      thumbnail: 'https://www.wpbeginner.com/wp-content/uploads/2020/04/featuredimageswp-og.png',
-      level: 'Senior level',
-    }
-  ]
+const Home = async () => {
+  // const StartupList = await client.fetch(STARTUP_QUERY);
+  const { data: StartupList } = await sanityFetch({ query: STARTUP_QUERY, params: {} })
+
+
   return (
     <>
       <section className='pink_container'>
@@ -45,14 +29,15 @@ const Home = () => {
       </section>
       <section className='startup-card-container flex flex-col gap-8 py-6 px-12'>
         <h2 className='font-semibold text-3xl'>Recommended startups</h2>
-        <div className='flex flex-row gap-7 flex-wrap'>
-          {StartupList.map((item, index) => {
+        <div className='flex flex-row flex-wrap justify-between gap-y-6'>
+          {StartupList.map((item: Startup, index: number) => {
             return (
-              <StartupCard key={item.id} data={item} />
+              <StartupCard key={item._id} data={item} />
             )
           })}
         </div>
       </section>
+      <SanityLive />
     </>
 
   )
