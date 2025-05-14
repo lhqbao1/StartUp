@@ -6,10 +6,17 @@ import { STARTUP_QUERY } from '@/sanity/lib/queries'
 import { Startup } from '@/types/startup'
 import { sanityFetch, SanityLive } from '@/sanity/lib/live'
 
-const Home = async () => {
-  // const StartupList = await client.fetch(STARTUP_QUERY);
-  const { data: StartupList } = await sanityFetch({ query: STARTUP_QUERY, params: {} })
+const Home = async ({ searchParams }: { searchParams: { q?: string } }) => {
+  const param = await searchParams // {locale: "id"}
 
+  const queryData = param.q || "";
+
+  const { data: StartupList } = await sanityFetch({
+    query: STARTUP_QUERY,
+    params: {
+      search: `*${queryData}*`, // wildcard for partial match
+    },
+  })
 
   return (
     <>
@@ -30,7 +37,7 @@ const Home = async () => {
       <section className='startup-card-container flex flex-col gap-8 py-6 px-12'>
         <h2 className='font-semibold text-3xl'>Recommended startups</h2>
         <div className='flex flex-row flex-wrap justify-between gap-y-6'>
-          {StartupList.map((item: Startup, index: number) => {
+          {StartupList.map((item: Startup) => {
             return (
               <StartupCard key={item._id} data={item} />
             )

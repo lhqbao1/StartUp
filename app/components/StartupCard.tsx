@@ -1,3 +1,4 @@
+'use client'
 import { Avatar, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 import { formatDate } from '@/lib/formatDate'
@@ -5,10 +6,11 @@ import { StartupCardProps } from '@/types/startup'
 import { Eye } from 'lucide-react'
 import Image from 'next/image'
 import React from 'react'
-
+import { useRouter } from 'next/navigation'
 
 
 const StartupCard: React.FC<StartupCardProps> = ({ data }) => {
+    const router = useRouter()
     return (
         <div className='flex flex-col gap-4 p-4 bg-white border-t-[5px] border-l-[5px] border-r-[10px] border-b-[10px] border-black rounded-4xl w-[320px]'>
             {/* Created at and views section */}
@@ -45,7 +47,10 @@ const StartupCard: React.FC<StartupCardProps> = ({ data }) => {
             {/* Level and see details section */}
             <div className='flex flex-row justify-between items-center'>
                 <div className='text-sm'>{data.level}</div>
-                <Button className='bg-black px-4 rounded-full'>Details</Button>
+                <Button
+                    className='bg-black px-4 rounded-full'
+                    onClick={() => router.push(`/startup/${data._id}`)}
+                >Details</Button>
             </div>
 
         </div>

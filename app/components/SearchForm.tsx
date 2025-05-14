@@ -13,22 +13,25 @@ import {
     FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import { useRouter } from 'next/navigation'
 
 const formSchema = z.object({
-    username: z.string().min(0),
+    searchData: z.string().min(0),
 })
 
+
+
 const SearchForm = () => {
+    const router = useRouter()
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            username: "",
+            searchData: "",
         },
     })
     function onSubmit(data: z.infer<typeof formSchema>) {
-
-        console.log('Search submitted with:', data)
+        router.push(`/?q=${encodeURIComponent(data.searchData)}`) // update search param
         // TODO: Add actual search logic here
     }
     return (
@@ -37,16 +40,14 @@ const SearchForm = () => {
                 className="space-y-8">
                 <FormField
                     control={form.control}
-                    name="username"
+                    name="searchData"
                     render={({ field }) => (
                         <FormItem>
                             <FormControl>
                                 <div className='relative'>
                                     <Input
                                         placeholder="Search startup"
-                                        className='border-black border-[5px] w-[600px] h-[70px] rounded-[80px] px-6 bg-white text-black text-xl! font-medium capitalize 
-                                placeholder:text-black placeholder:text-xl placeholder:uppercase placeholder:font-semibold
-                                focus:outline-none focus:border-black! focus:border-[5px] focus:shadow-none focus:ring-0! focus:px-6'
+                                        className='input placeholder:uppercase placeholder:text-black'
                                         {...field}
                                     />
                                     {/* Using inset-y-0 to put the icon inside the input */}

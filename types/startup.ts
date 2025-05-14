@@ -13,8 +13,16 @@ export interface Startup {
   description: string;
   image: string;
   level: string;
+  category: string;
 }
 
 export interface StartupCardProps {
   data: Startup;
+}
+
+export interface CreateStartup {
+    title: string,
+    category: string,
+    description: string,
+    image: string,
 }
